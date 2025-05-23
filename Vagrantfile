@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
         raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
         role = details['role']
         raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless role && !role.empty?
-        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['master', 'worker'].include?(role)
+        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server'].include?(role)
 
         config.vm.define name do |node|
             node.vm.hostname = name
