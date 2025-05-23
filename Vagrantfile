@@ -43,6 +43,10 @@ Vagrant.configure("2") do |config|
             end
 
             node.vm.provision "shell", path: "scripts/network.sh", env: { "STATIC_IP" => ip}
+            if role == "web-server"
+                node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                node.vm.provision "shell", path: "web/config.sh"
+            end
         end
     end
 end

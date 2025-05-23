@@ -45,3 +45,5 @@ fi
 # Ensure correct hostname
 hostnamectl set-hostname "$(hostname)"
 echo "127.0.0.1 $(hostname)" >> /etc/hosts
+
+echo "✅ static IP and hostname configured: $STATIC_IP"
