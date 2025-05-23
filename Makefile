@@ -15,6 +15,10 @@ build: ## Build Virtual Boxes
 	@vagrant up
 	@echo "Virtual boxes built..."
 
+rebuild: ## Rebuild Virtual Boxes
+	@make clean
+	@make build
+
 ssh-web01: ## SSH into Web01
 	@echo "🔑 SSH into web01"
 	@vagrant ssh web01
