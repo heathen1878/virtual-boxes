@@ -2,9 +2,10 @@
 set -euxo pipefail
 
 # Configure the firewall
-ufw enable
 ufw allow port 80/tcp
 ufw allow port 443/tcp
+ufw allow port 22/tcp
+ufw --force enable
 
 # Update and install dependencies
 apt-get update
