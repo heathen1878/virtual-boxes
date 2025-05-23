@@ -18,3 +18,8 @@ build: ## Build Virtual Boxes
 ssh-web01: ## SSH into Web01
 	@echo "🔑 SSH into web01"
 	@vagrant ssh web01
+
+clean: ## Clean up everything
+	@echo "🧹 Cleaning up..."
+	@vagrant destroy -f
+	@echo "Clean up complete!"

@@ -27,7 +27,6 @@ Vagrant.configure("2") do |config|
                 vb.name = name
                 vb.memory = details['memory'] || 1024
                 vb.cpus = details['cpus'] || 1
-                #vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
                 vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]
                 vb.customize ["modifyvm", :id, "--macaddress2", "auto"]
                 vb.customize ["modifyvm", :id, "--audio", "none"]                # No audio
@@ -42,6 +41,8 @@ Vagrant.configure("2") do |config|
                 vb.customize ["modifyvm", :id, "--vram", "16"]                   # Minimal video RAM
                 vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]    # Disable serial port
             end
+
+            node.vm.provision "shell", path: "scripts/network.sh", env: { "STATIC_IP" => ip}
         end
     end
 end
