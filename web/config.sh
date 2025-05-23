@@ -18,7 +18,7 @@ cp /vagrant/web/nginx/sites-available/reactapp/reactapp /etc/nginx/sites-availab
 mkdir -p /var/www/reactapp/html
 
 # Build node app
-cd /vagrant/web/src
+cd /vagrant/web
 npm run build
 
 # copy web content
