@@ -9,7 +9,7 @@ ufw --force enable
 
 # Update and install dependencies
 apt-get update
-apt-get install -y net-tools nginx curl gnupg2s
+apt-get install -y net-tools nginx curl
 
 # Get Node from Node Source PPA
 curl -fsSL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
