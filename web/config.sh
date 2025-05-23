@@ -24,19 +24,23 @@ apt install nodejs
 
 # copy nginx site configuration into place
 echo "Copying nginx app config into sites-available..."
-cp /vagrant/web/nginx/sites-available/reactapp/reactapp /etc/nginx/sites-available/reactapp
+cp /vagrant/web/app1/app1 /etc/nginx/sites-available/app1
+cp /vagrant/web/app2/app2 /etc/nginx/sites-available/app2
 
 # Create directories for web app
 echo "Making directories to hold web app content..."
-mkdir -p /var/www/reactapp/html
+mkdir -p /var/www/app1/html
+mkdir -p /var/www/app2/html
 
 # copy web content
 echo "Copying content to directories created previously..."
-cp -r /vagrant/web/public/* /var/www/reactapp/html
+cp -r /vagrant/web/app1/build/* /var/www/app1/html
+cp -r /vagrant/web/app2/build/* /var/www/app2/html
 
 # Enable the site
 echo "Enabling site..."
-ln -s /etc/nginx/sites-available/reactapp /etc/nginx/sites-enabled/reactapp
+ln -s /etc/nginx/sites-available/app1 /etc/nginx/sites-enabled/app1
+ln -s /etc/nginx/sites-available/app2 /etc/nginx/sites-enabled/app2
 
 # Test
 echo "Testing configuration..."
