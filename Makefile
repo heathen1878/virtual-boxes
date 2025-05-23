@@ -12,9 +12,9 @@ help:
 
 build: ## Build Virtual Boxes
 	@echo "🚀 Building virtual boxes..."
-        @vagrant up
-        @echo "Virtual boxes built..."
+	@vagrant up
+	@echo "Virtual boxes built..."
 
 ssh-web01 ## SSH into Web01
-        @echo "🔑 SSH into web01"
-        @vagrant ssh web01
+	@echo "🔑 SSH into web01"
+	@vagrant ssh web01
