@@ -19,6 +19,6 @@ mkdir -p /var/www/reactapp/html
 
 # Build node app
 cd /vagrant/web
-npm run build
+#npm run build
 
 # copy web content
