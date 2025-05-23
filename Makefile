@@ -17,6 +17,7 @@ build: ## Build Virtual Boxes
 
 rebuild: ## Rebuild Virtual Boxes
 	@make clean
+	@sleep -s 15
 	@make build
 
 ssh-web01: ## SSH into Web01
