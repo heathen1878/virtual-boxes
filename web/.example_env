@@ -3,3 +3,4 @@ AZURE_CERT_NAME_1=certificate-name-in-key-vault
 AZURE_CERT_NAME_2=certificate-name-in-key-vault
 AZURE_SP_ID=service-principal-client-id
 AZURE_SP_SECRET=service-principal-secret-value
+TENANT_ID=azure-tenant-id

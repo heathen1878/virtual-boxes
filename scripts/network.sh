@@ -3,7 +3,7 @@ set -euxo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
 # Static IP from Vagrant environment
-STATIC_IP="${STATIC_IP:-192.168.0.1}"
+STATIC_IP="${STATIC_IP}"
 
 # Detect current default interface
 DEFAULT_IFACE=$(ip route | awk '/^default/ {print $5}' | head -n 1)

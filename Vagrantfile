@@ -65,13 +65,20 @@ Vagrant.configure("2") do |config|
             end
 
             node.vm.provision "shell", path: "scripts/network.sh", env: { 
-                "STATIC_IP" => ip,
-                "AZURE_VAULT_NAME" => ENV["AZURE_VAULT_NAME"],
+                "STATIC_IP"         => ENV["ip"]
+            }
+
+            node.vm.provision "shell", path: "scripts/software.sh"
+
+            node.vm.provision "shell", path: "scripts/certificates.sh", env: {
+                "AZURE_VAULT_NAME"  => ENV["AZURE_VAULT_NAME"],
                 "AZURE_CERT_NAME_1" => ENV["AZURE_CERT_NAME_1"],
                 "AZURE_CERT_NAME_2" => ENV["AZURE_CERT_NAME_2"],
-                "AZURE_SP_ID" => ENV["AZURE_SP_ID"],
-                "AZURE_SP_SECRET" => ENV["AZURE_SP_SECRET"]
+                "AZURE_SP_ID"       => ENV["AZURE_SP_ID"],
+                "AZURE_SP_SECRET"   => ENV["AZURE_SP_SECRET"],
+                "TENANT_ID"         => ENV["TENANT_ID"]
             }
+
             if role == "web-server"
                 node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 node.vm.provision "shell", path: "web/config.sh"
