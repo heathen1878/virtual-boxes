@@ -6,8 +6,30 @@ Vagrant.configure("2") do |config|
 
     config.vm.box = "ubuntu/jammy64"
 
+    # Run checks to ensure the required environment variables are set.
+    # Network Adapter
     bridge_iface = ENV["BRIDGE_IFACE"]
     raise "❌ BRIDGE_IFACE is not set. Use: BRIDGE_IFACE=enp1s0f0 make up" unless bridge_iface && !bridge_iface.empty?
+
+    # Key Vault
+    azure_vault_name = ENV["AZURE_VAULT_NAME"]
+    raise "❌ AZURE_VAULT_NAME is not set. Use: ensure web/.env has been populated!" unless azure_vault_name && !azure_vault_name.empty?
+
+    # Certificate Names
+    azure_vault_cert_1 = ENV["AZURE_CERT_NAME_1"]
+    raise "❌ AZURE_CERT_NAME_1 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_1 && !azure_vault_cert_1.empty?
+
+    # Certificate Names
+    azure_vault_cert_2 = ENV["AZURE_CERT_NAME_2"]
+    raise "❌ AZURE_CERT_NAME_2 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_2 && !azure_vault_cert_2.empty?
+
+    # Service Principal Id
+    azure_sp_id = ENV["AZURE_SP_ID"]
+    raise "❌ AZURE_SP_ID is not set. Use: ensure web/.env has been populated!" unless azure_sp_id && !azure_sp_id.empty?
+
+    # Service Principal Secret
+    azure_sp_secret = ENV["AZURE_SP_SECRET"]
+    raise "❌ AZURE_SP_SECRET is not set. Use: ensure web/.env has been populated!" unless azure_sp_secret && !azure_sp_secret.empty?
 
     config_data['nodes'].each do |name, details|
         ip = details['ip']
@@ -42,7 +64,14 @@ Vagrant.configure("2") do |config|
                 vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]    # Disable serial port
             end
 
-            node.vm.provision "shell", path: "scripts/network.sh", env: { "STATIC_IP" => ip}
+            node.vm.provision "shell", path: "scripts/network.sh", env: { 
+                "STATIC_IP" => ip,
+                "AZURE_VAULT_NAME" => ENV["AZURE_VAULT_NAME"],
+                "AZURE_CERT_NAME_1" => ENV["AZURE_CERT_NAME_1"],
+                "AZURE_CERT_NAME_2" => ENV["AZURE_CERT_NAME_2"],
+                "AZURE_SP_ID" => ENV["AZURE_SP_ID"],
+                "AZURE_SP_SECRET" => ENV["AZURE_SP_SECRET"]
+            }
             if role == "web-server"
                 node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 node.vm.provision "shell", path: "web/config.sh"

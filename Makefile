@@ -3,6 +3,9 @@ VAGRANT_CONFIG_DIR=shared
 BRIDGE_IFACE ?= enp1s0f0
 export BRIDGE_IFACE
 
+include web/.env
+export
+
 # Show help with descriptions
 help:
 	@echo ""
