@@ -40,4 +40,4 @@ openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes
 
 chmod 600 "$PEM_PATH" "$KEY_PATH"
-echo "✅ NGINX SSL certificate updated."
+echo "✅ NGINX SSL certificate downloaded and ready for assignment."

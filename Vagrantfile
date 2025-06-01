@@ -77,8 +77,8 @@ Vagrant.configure("2") do |config|
                 "AZURE_VAULT_NAME"  => azure_vault_name,
                 "AZURE_CERT_NAME_1" => azure_vault_cert_1,
                 "AZURE_CERT_NAME_2" => azure_vault_cert_2,
-                "AZURE_SP_ID"       => azure_sp_id,
-                "AZURE_SP_SECRET"   => azure_sp_secret,
+                "CLIENT_ID"         => azure_sp_id,
+                "CLIENT_SECRET"     => azure_sp_secret,
                 "TENANT_ID"         => azure_tenant_id
             }
 
