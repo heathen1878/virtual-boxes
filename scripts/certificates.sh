@@ -32,7 +32,7 @@ az keyvault secret download \
 
 echo "🔧 Converting $CERT_NAME_1 to PEM"
 openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -password pass:
-openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes
+openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Clean up the pfx
@@ -51,8 +51,8 @@ az keyvault secret download \
   --encoding base64
 
 echo "🔧 Converting $CERT_NAME_2 to PEM"
-openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes
-openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes
+openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -password pass:
+openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Clean up the pfx
