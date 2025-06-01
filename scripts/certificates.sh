@@ -24,7 +24,14 @@ KEY_PATH="$CERT_DIR/key.pem"
 echo "📥 Downloading cert $CERT_NAME_1 from $VAULT_NAME"
 az keyvault certificate download \
   --vault-name "$VAULT_NAME" \
-  --name "$CERT_NAME" \
+  --name "$CERT_NAME_1" \
+  --file "$PFX_PATH" \
+  --encoding base64
+
+echo "📥 Downloading cert $CERT_NAME_2 from $VAULT_NAME"
+az keyvault certificate download \
+  --vault-name "$VAULT_NAME" \
+  --name "$CERT_NAME_2" \
   --file "$PFX_PATH" \
   --encoding base64
 
@@ -33,6 +40,4 @@ openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes
 
 chmod 600 "$PEM_PATH" "$KEY_PATH"
-nginx -s reload
-
 echo "✅ NGINX SSL certificate updated."

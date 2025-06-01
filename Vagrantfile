@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
             end
 
             node.vm.provision "shell", path: "scripts/network.sh", env: { 
-                "STATIC_IP"         => ENV["ip"]
+                "STATIC_IP"         => ip
             }
 
             node.vm.provision "shell", path: "scripts/software.sh"
