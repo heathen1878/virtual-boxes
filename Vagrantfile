@@ -31,6 +31,9 @@ Vagrant.configure("2") do |config|
     azure_sp_secret = ENV["AZURE_SP_SECRET"]
     raise "❌ AZURE_SP_SECRET is not set. Use: ensure web/.env has been populated!" unless azure_sp_secret && !azure_sp_secret.empty?
 
+    azure_tenant_id = ENV["TENANT_ID"]
+    raise "❌ TENANT_ID is not set. Use: ensure web/.env has been populated!" unless azure_tenant_id && !azure_tenant_id.empty?
+
     config_data['nodes'].each do |name, details|
         ip = details['ip']
         raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
@@ -71,12 +74,12 @@ Vagrant.configure("2") do |config|
             node.vm.provision "shell", path: "scripts/software.sh"
 
             node.vm.provision "shell", path: "scripts/certificates.sh", env: {
-                "AZURE_VAULT_NAME"  => ENV["AZURE_VAULT_NAME"],
-                "AZURE_CERT_NAME_1" => ENV["AZURE_CERT_NAME_1"],
-                "AZURE_CERT_NAME_2" => ENV["AZURE_CERT_NAME_2"],
-                "AZURE_SP_ID"       => ENV["AZURE_SP_ID"],
-                "AZURE_SP_SECRET"   => ENV["AZURE_SP_SECRET"],
-                "TENANT_ID"         => ENV["TENANT_ID"]
+                "AZURE_VAULT_NAME"  => azure_vault_name,
+                "AZURE_CERT_NAME_1" => azure_vault_cert_1,
+                "AZURE_CERT_NAME_2" => azure_vault_cert_2,
+                "AZURE_SP_ID"       => azure_sp_id,
+                "AZURE_SP_SECRET"   => azure_sp_secret,
+                "TENANT_ID"         => azure_tenant_id
             }
 
             if role == "web-server"
