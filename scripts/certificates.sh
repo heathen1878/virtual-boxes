@@ -16,6 +16,8 @@ az login --service-principal \
 
 # Now fetch the cert and reload nginx as in the earlier script
 SSL_DIR="/etc/ssl/certs"
+chmod 755 $SSL_DIR
+
 CERT_DIR="/etc/nginx/certs"
 mkdir -p "$CERT_DIR"
 
@@ -34,6 +36,9 @@ az keyvault secret download \
 echo "🔧 Converting $CERT_NAME_1 to PEM"
 openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -password pass:
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
+
+# Set ownership and permissions for Ubuntu's NGINX user
+chown www-data:www-data "$PEM_PATH" "$KEY_PATH"
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Copy into SSL directory
@@ -57,6 +62,9 @@ az keyvault secret download \
 echo "🔧 Converting $CERT_NAME_2 to PEM"
 openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -password pass:
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
+
+# Set ownership and permissions for Ubuntu's NGINX user
+chown www-data:www-data "$PEM_PATH" "$KEY_PATH"
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Copy into SSL directory
