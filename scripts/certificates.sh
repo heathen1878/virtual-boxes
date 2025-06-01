@@ -24,7 +24,7 @@ mkdir -p "$CERT_DIR"
 # CERT 1
 PFX_PATH="$CERT_DIR/$CERT_NAME_1.pfx"
 PEM_PATH="$CERT_DIR/$CERT_NAME_1.pem"
-KEY_PATH="$CERT_DIR/$CERT_NAME_1.pem"
+KEY_PATH="$CERT_DIR/$CERT_NAME_1-key.pem"
 
 echo "📥 Downloading cert $CERT_NAME_1 from $VAULT_NAME"
 az keyvault secret download \
@@ -42,7 +42,8 @@ chown www-data:www-data "$PEM_PATH" "$KEY_PATH"
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Copy into SSL directory
-cp *.pem $SSL_DIR
+cp $PEM_PATH $SSL_DIR
+cp $KEY_PATH $SSL_DIR
 
 # Clean up pfx and pem files
 rm -f *
@@ -50,7 +51,7 @@ rm -f *
 # CERT 2
 PFX_PATH="$CERT_DIR/$CERT_NAME_2.pfx"
 PEM_PATH="$CERT_DIR/$CERT_NAME_2.pem"
-KEY_PATH="$CERT_DIR/$CERT_NAME_2.pem"
+KEY_PATH="$CERT_DIR/$CERT_NAME_2-key.pem"
 
 echo "📥 Downloading cert $CERT_NAME_2 from $VAULT_NAME"
 az keyvault secret download \
@@ -68,7 +69,8 @@ chown www-data:www-data "$PEM_PATH" "$KEY_PATH"
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
 # Copy into SSL directory
-cp *.pem $SSL_DIR
+cp $PEM_PATH $SSL_DIR
+cp $KEY_PATH $SSL_DIR
 
 # Clean up pfx and pem files
 rm -f *
