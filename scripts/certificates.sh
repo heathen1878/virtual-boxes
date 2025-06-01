@@ -15,6 +15,7 @@ az login --service-principal \
   --tenant "$TENANT_ID" > /dev/null
 
 # Now fetch the cert and reload nginx as in the earlier script
+SSL_DIR="/etc/ssl/certs"
 CERT_DIR="/etc/nginx/certs"
 mkdir -p "$CERT_DIR"
 
@@ -35,8 +36,11 @@ openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -passwor
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
-# Clean up the pfx
-rm -f $PFX_PATH
+# Copy into SSL directory
+cp *.pem $SSL_DIR
+
+# Clean up pfx and pem files
+rm -f *
 
 # CERT 2
 PFX_PATH="$CERT_DIR/$CERT_NAME_2.pfx"
@@ -55,7 +59,10 @@ openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -passwor
 openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
 chmod 600 "$PEM_PATH" "$KEY_PATH"
 
-# Clean up the pfx
-rm -f $PFX_PATH
+# Copy into SSL directory
+cp *.pem $SSL_DIR
+
+# Clean up pfx and pem files
+rm -f *
 
 echo "✅ NGINX SSL certificate downloaded and ready for assignment."
