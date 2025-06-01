@@ -24,11 +24,11 @@ PEM_PATH="$CERT_DIR/$CERT_NAME_1.pem"
 KEY_PATH="$CERT_DIR/$CERT_NAME_1.pem"
 
 echo "📥 Downloading cert $CERT_NAME_1 from $VAULT_NAME"
-az keyvault certificate download \
+az keyvault secret download \
   --vault-name "$VAULT_NAME" \
   --name "$CERT_NAME_1" \
   --file "$PFX_PATH" \
-  --encoding PEM
+  --encoding base64
 
 echo "🔧 Converting $CERT_NAME_1 to PEM"
 openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes
@@ -41,11 +41,11 @@ PEM_PATH="$CERT_DIR/$CERT_NAME_2.pem"
 KEY_PATH="$CERT_DIR/$CERT_NAME_2.pem"
 
 echo "📥 Downloading cert $CERT_NAME_2 from $VAULT_NAME"
-az keyvault certificate download \
+az keyvault secret download \
   --vault-name "$VAULT_NAME" \
   --name "$CERT_NAME_2" \
   --file "$PFX_PATH" \
-  --encoding PEM
+  --encoding base64
 
 echo "🔧 Converting $CERT_NAME_2 to PEM"
 openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes
