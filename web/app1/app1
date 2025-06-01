@@ -1,6 +1,16 @@
 server {
         listen 80;
+        server_name app1.infratechy.co.uk;
+        return 301 https://$host$request_uri;
+};
 
+server {
+        listen 443 ssl;
+        server_name app1.infratechy.co.uk;
+
+        ssl_certificate /etc/ssl/certs/wildcard-infratechy-co-uk.pem;
+        ssl_certificate_key /etc/ssl/certs/wildcard-infratechy-co-uk-key.pem;
+        
         root /var/www/app1/html;
 
         # Add index.php to the list if you are using PHP
@@ -13,4 +23,4 @@ server {
                 # as directory, then fall back to displaying a 404.
                 try_files $uri $uri/ =404;
         }
-}
+};
