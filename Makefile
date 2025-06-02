@@ -30,7 +30,7 @@ ssh-web1: ##   SSH into Web1
 
 load-balancer: ##   Build a Load Balancer and backends
 	@echo "🚀 Building load balancer and web backends..."
-	@vagrant up load-balancer
+	@vagrant up lb1
 	@echo "environment built..."
 
 clean: ##   Clean up everything
