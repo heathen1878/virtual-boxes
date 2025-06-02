@@ -19,7 +19,7 @@ web: ## Build a NGINX web server
 	@echo "Virtual boxes built..."
 
 rebuild-web: ## Rebuild Virtual Boxes
-	@echo "🧹 Cleaning up...
+	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f web1
 	@sleep 15
 	@make web1
