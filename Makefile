@@ -33,6 +33,10 @@ load-balancer: ##   Build a Load Balancer and backends
 	@vagrant up lb1
 	@echo "environment built..."
 
+ssh-lb1: ##   SSH into Web1
+	@echo "🔑 SSH into load balancer 1"
+	@vagrant ssh lb1
+
 clean: ##   Clean up everything
 	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f
