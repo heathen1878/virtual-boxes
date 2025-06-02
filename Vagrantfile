@@ -86,6 +86,11 @@ Vagrant.configure("2") do |config|
                 }
             end
 
+            if role == "load-balancer"
+                node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"
+                node.vm.provision "shell", path: "load_balancer/config.sh"
+            end
+
             if role == "web-server"
                 node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 node.vm.provision "shell", path: "web/config.sh"
