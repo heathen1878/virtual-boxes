@@ -13,21 +13,21 @@ help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?##' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
-build: ## Build Virtual Boxes
+web: ## Build a NGINX web server
 	@echo "🚀 Building virtual boxes..."
-	@vagrant up
+	@vagrant up web1
 	@echo "Virtual boxes built..."
 
-rebuild: ## Rebuild Virtual Boxes
+rebuild-web: ## Rebuild Virtual Boxes
 	@make clean
 	@sleep 15
-	@make build
+	@make build web1
 
-ssh-web01: ## SSH into Web01
-	@echo "🔑 SSH into web01"
-	@vagrant ssh web01
+ssh-web1: ## SSH into Web1
+	@echo "🔑 SSH into web1"
+	@vagrant ssh web1
 
 clean: ## Clean up everything
 	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f
+	@vagrant destroy -f web1
 	@echo "Clean up complete!"

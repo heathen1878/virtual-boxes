@@ -14,8 +14,8 @@ server {
         listen 443 ssl;
         server_name app1.infratechy.co.uk;
 
-        ssl_certificate /etc/ssl/certs/wildcard-infratechy-co-uk.pem;
-        ssl_certificate_key /etc/ssl/certs/wildcard-infratechy-co-uk-key.pem;
+        ssl_certificate /etc/ssl/certs/app1.pem;
+        ssl_certificate_key /etc/ssl/certs/app1-key.pem;
         
         root /var/www/app1/html;
 

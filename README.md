@@ -5,3 +5,10 @@ Uses Vagrant to spin up Virtual Machines in Virtual box
 make help
 ```
 
+## Build an Ubuntu VM running NGINX
+
+```shell
+make build
+```
+
+

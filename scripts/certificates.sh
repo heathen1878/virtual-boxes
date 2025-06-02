@@ -25,6 +25,10 @@ mkdir -p "$CERT_DIR"
 PFX_PATH="$CERT_DIR/$CERT_NAME_1.pfx"
 PEM_PATH="$CERT_DIR/$CERT_NAME_1.pem"
 KEY_PATH="$CERT_DIR/$CERT_NAME_1-key.pem"
+REAL_CERT_PATH="$SSL_DIR/$CERT_NAME_1.pem"
+REAL_KEY_PATH="$SSL_DIR/$CERT_NAME_1-key.pem"
+LIVE_CERT_PATH="$SSL_DIR/app1.pem"
+LIVE_KEY_PATH="$SSL_DIR/app1-key.pem"
 
 echo "📥 Downloading cert $CERT_NAME_1 from $VAULT_NAME"
 az keyvault secret download \
@@ -45,6 +49,10 @@ chmod 600 "$PEM_PATH" "$KEY_PATH"
 cp $PEM_PATH $SSL_DIR
 cp $KEY_PATH $SSL_DIR
 
+# Create/update symlinks for NGINX
+ln -sf "$REAL_CERT_PATH" "$LIVE_CERT_PATH"
+ln -sf "$REAL_KEY_PATH"  "$LIVE_KEY_PATH"
+
 # Clean up pfx and pem files
 rm -f *
 
@@ -52,6 +60,10 @@ rm -f *
 PFX_PATH="$CERT_DIR/$CERT_NAME_2.pfx"
 PEM_PATH="$CERT_DIR/$CERT_NAME_2.pem"
 KEY_PATH="$CERT_DIR/$CERT_NAME_2-key.pem"
+REAL_CERT_PATH="$SSL_DIR/$CERT_NAME_1.pem"
+REAL_KEY_PATH="$SSL_DIR/$CERT_NAME_1-key.pem"
+LIVE_CERT_PATH="$SSL_DIR/app2.pem"
+LIVE_KEY_PATH="$SSL_DIR/app2-key.pem"
 
 echo "📥 Downloading cert $CERT_NAME_2 from $VAULT_NAME"
 az keyvault secret download \
@@ -71,6 +83,10 @@ chmod 600 "$PEM_PATH" "$KEY_PATH"
 # Copy into SSL directory
 cp $PEM_PATH $SSL_DIR
 cp $KEY_PATH $SSL_DIR
+
+# Create/update symlinks for NGINX
+ln -sf "$REAL_CERT_PATH" "$LIVE_CERT_PATH"
+ln -sf "$REAL_KEY_PATH"  "$LIVE_KEY_PATH"
 
 # Clean up pfx and pem files
 rm -f *
