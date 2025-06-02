@@ -28,7 +28,7 @@ ssh-web1: ##   SSH into Web1
 	@echo "🔑 SSH into web1"
 	@vagrant ssh web1
 
-load-balancer: ## Build a Load Balancer and backends
+load-balancer: ##   Build a Load Balancer and backends
 	@echo "🚀 Building load balancer and web backends..."
 	@vagrant up load-balancer
 	@echo "environment built..."
