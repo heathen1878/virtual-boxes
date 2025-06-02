@@ -2,3 +2,12 @@ nodes:
   web1:
     ip: 192.168.188.50
     role: web-server
+  lb1:
+    ip: 192.168.188.51
+    role: load-balancer
+  web2:
+    ip: 192.168.188.52
+    role: web-server
+  web3:
+    ip: 192.168.188.53
+    role: web-server
