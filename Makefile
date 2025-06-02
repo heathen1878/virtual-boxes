@@ -19,9 +19,10 @@ web: ## Build a NGINX web server
 	@echo "Virtual boxes built..."
 
 rebuild-web: ## Rebuild Virtual Boxes
-	@make clean
+	@echo "🧹 Cleaning up...
+	@vagrant destroy -f web1
 	@sleep 15
-	@make build web1
+	@make web1
 
 ssh-web1: ## SSH into Web1
 	@echo "🔑 SSH into web1"
@@ -29,5 +30,5 @@ ssh-web1: ## SSH into Web1
 
 clean: ## Clean up everything
 	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f web1
+	@vagrant destroy -f
 	@echo "Clean up complete!"
