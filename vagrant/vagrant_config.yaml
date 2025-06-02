@@ -1,0 +1,4 @@
+nodes:
+  web1:
+    ip: 192.168.188.50
+    role: web-server
