@@ -2,12 +2,25 @@ nodes:
   web1:
     ip: 192.168.188.50
     role: web-server
+    framework: node
+    tls: yes
+    certificates:
+    - wildcard-tf-demos-co-uk
+    - wildcard-infratechy-co-uk
   lb1:
     ip: 192.168.188.51
     role: load-balancer
+    framework: none
+    tls: yes
+    certificates:
+    - wildcard-tf-demos-co-uk
   web2:
     ip: 192.168.188.52
-    role: backend-web-server
+    role: web-server
+    framework: node
+    tls: no
   web3:
     ip: 192.168.188.53
-    role: backend-web-server
+    role: web-server
+    framework: node
+    tls: no

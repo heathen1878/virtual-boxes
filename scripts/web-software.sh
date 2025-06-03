@@ -6,10 +6,21 @@ echo 'Updating the list of available packages and versions, upgrading installed 
 apt update && apt upgrade -y -qq && apt install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
-    curl
+    curl \
+    net-tools \
+    nginx
 
 # Install Azure Cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
+
+# Configure the firewall
+echo "Setting up the firewall to allow 80 and 443..."
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow 22/tcp
+
+echo "Enabling the firewall..."
+ufw --force enable
