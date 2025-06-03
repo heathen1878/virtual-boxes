@@ -54,6 +54,6 @@ clean: ##   Clean up everything
 
 build-node-app1: ## Builds the node app
 	@echo "📦 Building node app"
-	@npm install web/app1/src/package.json
+	@npm install web/app1
 	@npm run build web/app1/src
 	@echo "Node app built"
