@@ -1,7 +1,6 @@
 require 'yaml'
 
 config_data = YAML.load_file('vagrant/vagrant_config.yaml')
-cert_names = config_data.fetch("certificates", []) || []
 
 Vagrant.configure("2") do |config|
 
@@ -87,7 +86,6 @@ Vagrant.configure("2") do |config|
             # end
 
             if tls_enabled
-                puts "Configuring TLS..."
                 node.vm.provision "shell",
                     path: "scripts/certificates.sh",
                     args: cert_names, 
