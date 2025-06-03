@@ -35,7 +35,7 @@ load-balancer: ##   Build a Load Balancer and backends
 	@vagrant up web3
 	@echo "environment built..."
 
-rebuild-load-balancer: ##   rebuild Load Balancer and backends
+rebuild-load-balancer: ## rebuild Load Balancer and backends
 	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f lb1
 	@vagrant destroy -f web2
@@ -43,16 +43,16 @@ rebuild-load-balancer: ##   rebuild Load Balancer and backends
 	@sleep 15
 	@make load-balancer
 
-ssh-lb1: ##   SSH into Web1
+ssh-lb1: ##           SSH into Web1
 	@echo "🔑 SSH into load balancer 1"
 	@vagrant ssh lb1
 
-clean: ##   Clean up everything
+clean: ##             Clean up everything
 	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f
 	@echo "Clean up complete!"
 
-build-node-app1: ## Builds the node app
+build-node-app1: ##   Builds the node app
 	@echo "📦 Building node app"
 	@cd web/app1
 	@npm install
@@ -60,10 +60,8 @@ build-node-app1: ## Builds the node app
 	@cd ../..
 	@echo "Node app built"
 
-build-node-app2: ## Builds the node app
+build-node-app2: ##   Builds the node app
 	@echo "📦 Building node app"
-	@cd web/app2
-	@npm install
-	@npm run build
-	@cd ../..
+	@npm --prefix web/app2 install
+	@npm --prefix web/app2 run build
 	@echo "Node app built"
