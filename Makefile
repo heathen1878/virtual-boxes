@@ -53,15 +53,13 @@ clean: ##             Clean up everything
 	@echo "Clean up complete!"
 
 build-node-app1: ##   Builds the node app
-	@echo "📦 Building node app"
-	@cd web/app1
-	@npm install
-	@npm run build
-	@cd ../..
-	@echo "Node app built"
+	@echo "📦 Building node app..."
+	@npm --prefix web/app1 install
+	@npm --prefix web/app1 run build
+	@echo "🚀 Node app built..."
 
 build-node-app2: ##   Builds the node app
-	@echo "📦 Building node app"
+	@echo "📦 Building node app..."
 	@npm --prefix web/app2 install
 	@npm --prefix web/app2 run build
-	@echo "Node app built"
+	@echo "🚀 Node app built..."
