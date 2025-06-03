@@ -1,0 +1,18 @@
+# Backends
+# The names will need to be resolvable.
+upstream webservers {
+    server web2;
+    server web3;
+}
+
+# Need to workout how to pass https to http and https to https
+
+server {
+    listen 80;
+
+    server_name www.infratechy.co.uk;
+
+    location / {
+        proxy_pass http://webservers;
+    }
+}

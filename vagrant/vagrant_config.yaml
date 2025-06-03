@@ -7,7 +7,7 @@ nodes:
     role: load-balancer
   web2:
     ip: 192.168.188.52
-    role: web-server
+    role: backend-web-server
   web3:
     ip: 192.168.188.53
-    role: web-server
+    role: backend-web-server

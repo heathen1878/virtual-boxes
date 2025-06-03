@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
         raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
         role = details['role']
         raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless role && !role.empty?
-        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server', 'load-balancer'].include?(role)
+        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server', 'load-balancer', 'backend-web-server'].include?(role)
 
         config.vm.define name do |node|
             node.vm.hostname = name
@@ -89,6 +89,14 @@ Vagrant.configure("2") do |config|
             if role == "load-balancer"
                 node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"
                 node.vm.provision "shell", path: "load_balancer/config.sh"
+            end
+
+            if name == "web2"
+                puts "Provisioning Web 2..."
+            end
+
+            if name == "web3"
+                puts "Provisioning Web 3..."
             end
 
             if role == "web-server"
