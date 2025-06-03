@@ -87,6 +87,7 @@ Vagrant.configure("2") do |config|
             end
 
             if tls == "yes"
+                puts "Configuring TLS..."
                 node.vm.provision "shell", path: "scripts/certificates.sh", args: cert_names, env: {
                     "AZURE_VAULT_NAME"  => azure_vault_name,
                     "CLIENT_ID"         => azure_sp_id,
