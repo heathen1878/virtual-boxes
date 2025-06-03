@@ -21,14 +21,8 @@ Vagrant.configure("2") do |config|
         framework = details.fetch("framework")
         #raise "❌ Framework for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
         #raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
-        tls = details.fetch("tls", "no")
+        tls_enabled = details.fetch("tls", false)
         cert_names = details.fetch("certificates", []) || []
-
-        if tls == "no"
-            puts "no tls"
-        elseif tls == "yes"
-            puts "tls!"
-        end
 
         if role == "web-server"
             # Key Vault
@@ -87,12 +81,12 @@ Vagrant.configure("2") do |config|
                 "STATIC_IP"         => ip
             }
 
-            # Install Tools and software.
-            if role == "web-server"
-                node.vm.provision "shell", path: "scripts/web-software.sh"
-            end
+            # # Install Tools and software.
+            # if role == "web-server"
+            #     node.vm.provision "shell", path: "scripts/web-software.sh"
+            # end
 
-            if tls == "yes"
+            if tls_enabled
                 puts "Configuring TLS..."
                 node.vm.provision "shell",
                     path: "scripts/certificates.sh",
