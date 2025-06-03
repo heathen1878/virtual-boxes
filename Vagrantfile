@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
         raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless role && !role.empty?
         raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server', 'load-balancer'].include?(role)
         framework = details['framework']
-        raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
-        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(role)
+        raise "❌ Framework for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
+        raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
 
         if role == "web-server"
             # Key Vault
