@@ -52,14 +52,8 @@ clean: ##             Clean up everything
 	@vagrant destroy -f
 	@echo "Clean up complete!"
 
-build-node-app1: ##   Builds the node app
+build-node-app: ##   Builds the node app
 	@echo "📦 Building node app..."
-	@npm --prefix web/app1 install
-	@npm --prefix web/app1 run build
-	@echo "🚀 Node app built..."
-
-build-node-app2: ##   Builds the node app
-	@echo "📦 Building node app..."
-	@npm --prefix web/app2 install
-	@npm --prefix web/app2 run build
+	@npm --prefix web/app install
+	@npm --prefix web/app run build
 	@echo "🚀 Node app built..."

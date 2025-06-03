@@ -101,7 +101,7 @@ Vagrant.configure("2") do |config|
 
             if role == "web-server"
                 node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
-                node.vm.provision "shell", path: "web/config.sh"
+                node.vm.provision "shell", path: "scripts/web-server.sh"
             end
         end
     end
