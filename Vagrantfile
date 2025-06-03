@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
         framework = details['framework']
         raise "❌ Framework for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
         raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
+        tls = details["tls"]
 
         if role == "web-server"
             # Key Vault
