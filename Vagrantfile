@@ -24,6 +24,12 @@ Vagrant.configure("2") do |config|
         tls = details.fetch("tls", "no")
         cert_names = details.fetch("certificates", []) || []
 
+        if tls == "no"
+            puts "no tls"
+        elseif tls == "yes"
+            puts "tls!"
+        end
+
         if role == "web-server"
             # Key Vault
             azure_vault_name = ENV["AZURE_VAULT_NAME"]
@@ -48,7 +54,6 @@ Vagrant.configure("2") do |config|
             azure_tenant_id = ENV["TENANT_ID"]
             raise "❌ TENANT_ID is not set. Use: ensure web/.env has been populated!" unless azure_tenant_id && !azure_tenant_id.empty?
         end
-
 
         config.vm.define name do |node|
             node.vm.hostname = name
