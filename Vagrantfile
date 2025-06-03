@@ -12,31 +12,6 @@ Vagrant.configure("2") do |config|
     bridge_iface = ENV["BRIDGE_IFACE"]
     raise "❌ BRIDGE_IFACE is not set. Use: BRIDGE_IFACE=enp1s0f0 make up" unless bridge_iface && !bridge_iface.empty?
 
-    if role == "web-server"
-        # Key Vault
-        azure_vault_name = ENV["AZURE_VAULT_NAME"]
-        raise "❌ AZURE_VAULT_NAME is not set. Use: ensure web/.env has been populated!" unless azure_vault_name && !azure_vault_name.empty?
-
-        # Certificate Names
-        azure_vault_cert_1 = ENV["AZURE_CERT_NAME_1"]
-        raise "❌ AZURE_CERT_NAME_1 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_1 && !azure_vault_cert_1.empty?
-
-        # Certificate Names
-        azure_vault_cert_2 = ENV["AZURE_CERT_NAME_2"]
-        raise "❌ AZURE_CERT_NAME_2 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_2 && !azure_vault_cert_2.empty?
-
-        # Service Principal Id
-        azure_sp_id = ENV["AZURE_SP_ID"]
-        raise "❌ AZURE_SP_ID is not set. Use: ensure web/.env has been populated!" unless azure_sp_id && !azure_sp_id.empty?
-
-        # Service Principal Secret
-        azure_sp_secret = ENV["AZURE_SP_SECRET"]
-        raise "❌ AZURE_SP_SECRET is not set. Use: ensure web/.env has been populated!" unless azure_sp_secret && !azure_sp_secret.empty?
-
-        azure_tenant_id = ENV["TENANT_ID"]
-        raise "❌ TENANT_ID is not set. Use: ensure web/.env has been populated!" unless azure_tenant_id && !azure_tenant_id.empty?
-    end
-
     config_data['nodes'].each do |name, details|
         ip = details['ip']
         raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
@@ -46,6 +21,32 @@ Vagrant.configure("2") do |config|
         role = details['framework']
         raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
         raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(role)
+
+        if role == "web-server"
+            # Key Vault
+            azure_vault_name = ENV["AZURE_VAULT_NAME"]
+            raise "❌ AZURE_VAULT_NAME is not set. Use: ensure web/.env has been populated!" unless azure_vault_name && !azure_vault_name.empty?
+
+            # Certificate Names
+            azure_vault_cert_1 = ENV["AZURE_CERT_NAME_1"]
+            raise "❌ AZURE_CERT_NAME_1 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_1 && !azure_vault_cert_1.empty?
+
+            # Certificate Names
+            azure_vault_cert_2 = ENV["AZURE_CERT_NAME_2"]
+            raise "❌ AZURE_CERT_NAME_2 is not set. Use: ensure web/.env has been populated!" unless azure_vault_cert_2 && !azure_vault_cert_2.empty?
+
+            # Service Principal Id
+            azure_sp_id = ENV["AZURE_SP_ID"]
+            raise "❌ AZURE_SP_ID is not set. Use: ensure web/.env has been populated!" unless azure_sp_id && !azure_sp_id.empty?
+
+            # Service Principal Secret
+            azure_sp_secret = ENV["AZURE_SP_SECRET"]
+            raise "❌ AZURE_SP_SECRET is not set. Use: ensure web/.env has been populated!" unless azure_sp_secret && !azure_sp_secret.empty?
+
+            azure_tenant_id = ENV["TENANT_ID"]
+            raise "❌ TENANT_ID is not set. Use: ensure web/.env has been populated!" unless azure_tenant_id && !azure_tenant_id.empty?
+        end
+
 
         config.vm.define name do |node|
             node.vm.hostname = name
