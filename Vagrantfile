@@ -13,15 +13,16 @@ Vagrant.configure("2") do |config|
     raise "❌ BRIDGE_IFACE is not set. Use: BRIDGE_IFACE=enp1s0f0 make up" unless bridge_iface && !bridge_iface.empty?
 
     config_data['nodes'].each do |name, details|
-        ip = details['ip']
-        raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
-        role = details['role']
-        raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless role && !role.empty?
-        raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server', 'load-balancer'].include?(role)
-        framework = details['framework']
-        raise "❌ Framework for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
-        raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
-        tls = details["tls"]
+        ip = details.fetch("ip")
+        #raise "❌ IP address for #{name} is not set. Please check vagrant_config.yaml" unless ip && !ip.empty?
+        role = details.fetch("role")
+        #raise "❌ Role for #{name} is not set. Please check vagrant_config.yaml" unless role && !role.empty?
+        #raise "❌ Role #{role} is not supported. Please check vagrant_config.yaml" unless ['web-server', 'data-server', 'load-balancer'].include?(role)
+        framework = details.fetch("framework")
+        #raise "❌ Framework for #{name} is not set. Please check vagrant_config.yaml" unless framework && !framework.empty?
+        #raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
+        tls = details.fetch("tls", "no")
+        cert_names = details.fetch("certificates", []) || []
 
         if role == "web-server"
             # Key Vault
@@ -88,12 +89,15 @@ Vagrant.configure("2") do |config|
 
             if tls == "yes"
                 puts "Configuring TLS..."
-                node.vm.provision "shell", path: "scripts/certificates.sh", args: cert_names, env: {
-                    "AZURE_VAULT_NAME"  => azure_vault_name,
-                    "CLIENT_ID"         => azure_sp_id,
-                    "CLIENT_SECRET"     => azure_sp_secret,
-                    "TENANT_ID"         => azure_tenant_id
-                }
+                node.vm.provision "shell",
+                    path: "scripts/certificates.sh",
+                    args: cert_names, 
+                    env: {
+                        "AZURE_VAULT_NAME"  => azure_vault_name,
+                        "CLIENT_ID"         => azure_sp_id,
+                        "CLIENT_SECRET"     => azure_sp_secret,
+                        "TENANT_ID"         => azure_tenant_id
+                    }
             end
 
             if role == "load-balancer"
