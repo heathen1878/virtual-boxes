@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
         #raise "❌ Framework #{framework} is not supported. Please check vagrant_config.yaml" unless ['node', 'none'].include?(framework)
         tls_enabled = details.fetch("tls", false)
         cert_names = details.fetch("certificates", []) || []
+        web_sites = details.fetch("sites", []) || []
 
         if role == "web-server"
             # Key Vault
@@ -102,10 +103,12 @@ Vagrant.configure("2") do |config|
                 node.vm.provision "shell", path: "script/load-balancer.sh"
             end
 
-            # if role == "web-server"
-            #     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
-            #     node.vm.provision "shell", path: "scripts/web-server.sh"
-            # end
+            if role == "web-server"
+                node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                node.vm.provision "shell",
+                path: "scripts/web-server.sh",
+                args: web_sites
+            end
         end
     end
 end

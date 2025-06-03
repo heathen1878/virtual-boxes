@@ -7,6 +7,9 @@ nodes:
     certificates:
     - wildcard-tf-demos-co-uk
     - wildcard-infratechy-co-uk
+    sites:
+    - app1
+    - app2
   lb1:
     ip: 192.168.188.51
     role: load-balancer
