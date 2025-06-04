@@ -91,8 +91,8 @@ Vagrant.configure("2") do |config|
                         args: [site_name],
                         env: {
                             "HOSTNAME"   => site_name,
-                            "WEB_FOLDER" => web_folder.
-                            "FQDN"       => fqdn
+                            "WEB_FOLDER" => web_folder,
+                            "FQDN"       => fqdn,
                             "CERT_NAME"  => cert
                     }
                 end
