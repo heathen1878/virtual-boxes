@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
 
 # Get Node from Node Source PPA
 echo "Grab Node PPA script and running it, ready to install nodejs..."
