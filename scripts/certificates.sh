@@ -16,9 +16,6 @@ for cert in "$@"
 do 
   echo "Installing $cert"
 
-  SSL_DIR="/etc/ssl/certs"
-  chmod 755 $SSL_DIR
-
   CERT_DIR="/etc/nginx/certs"
   mkdir -p "$CERT_DIR"
 
@@ -42,12 +39,8 @@ do
   chown www-data:www-data "$PEM_PATH" "$KEY_PATH"
   chmod 600 "$PEM_PATH" "$KEY_PATH"
 
-  # Copy into SSL directory
-  cp $PEM_PATH $SSL_DIR
-  cp $KEY_PATH $SSL_DIR
-
-  # Clean up pfx and pem files
-  rm -f $CERT_DIR/*
+  # Clean up pfx
+  rm -f $CERT_DIR/*.pfx
 
   echo "✅ NGINX SSL certificate downloaded and ready for assignment."
 done
