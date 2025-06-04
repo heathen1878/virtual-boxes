@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
                             "WEB_FOLDER" => web_folder,
                             "FQDN"       => fqdn,
                             "CERT_NAME"  => cert
-                    }
+                        }
                 end
             else
                 # Configure one or more sites on the web server...

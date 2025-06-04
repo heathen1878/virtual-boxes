@@ -10,7 +10,7 @@ do
     ENABLED_SITE="/etc/nginx/sites-enabled/$site"
 
     # Generate NGINX configuration
-    envsubst '${HOSTNAME} ${WEB_FOLDER} {FQDN} {CERT_NAME}' < "$TPLPATH" > "$AVAILABLE_SITE"
+    envsubst '${HOSTNAME} ${WEB_FOLDER} ${FQDN} ${CERT_NAME}' < "$TPLPATH" > "$AVAILABLE_SITE"
     
     echo "Making directories to hold web app content..."
     mkdir -p /var/www/$WEB_FOLDER/html
