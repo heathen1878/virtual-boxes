@@ -6,10 +6,13 @@ nodes:
     tls: yes
     certificates:
     - wildcard-tf-demos-co-uk
-    - wildcard-infratechy-co-uk
     sites:
-    - app1
-    - app2
+      app1:
+        fqdn: www.tf-demos.co.uk
+        web_folder: www_tf_demos_co_uk
+      app2:
+        fqdn: app.tf-demos.co.uk
+        web_folder: app_tf_demos_co_uk
   lb1:
     ip: 192.168.188.51
     role: load-balancer
