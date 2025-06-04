@@ -12,7 +12,7 @@ server {
 
 server {
         listen 443 ssl;
-        server_name ${SERVER_NAME};
+        server_name ${FQDN};
 
         ssl_certificate /etc/nginx/certs/${CERT_NAME}.pem;
         ssl_certificate_key /etc/nginx/certs/${CERT_NAME}-key.pem;
