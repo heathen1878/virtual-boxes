@@ -54,6 +54,9 @@ Vagrant.configure("2") do |config|
             # Install software and other prerequisite tools...
             if role == "web-server"
                 node.vm.provision "shell", path: "scripts/web-software.sh"
+                if framework == "node"
+                    node.vm.provision "shell", path: "scripts/node.sh"
+                end
             end
 
             # If required download and install one or more TLS certs...

@@ -12,7 +12,7 @@ function App() {
         <p>
           Connected to: <strong>{fullurl}</strong>
           
-          App 1 served by: <strong>{hostname}</strong>
+          App served by: <strong>{hostname}</strong>
         </p>
       </header>
     </div>
