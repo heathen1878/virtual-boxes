@@ -17,7 +17,7 @@ server {
         ssl_certificate /etc/nginx/certs/${CERT_NAME}.pem;
         ssl_certificate_key /etc/nginx/certs/${CERT_NAME}-key.pem;
         
-        root /var/www/${HOSTNAME}/html;
+        root /var/www/${WEB_FOLDER}/html;
 
         index index.html;
 

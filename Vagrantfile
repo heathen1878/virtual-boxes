@@ -82,6 +82,7 @@ Vagrant.configure("2") do |config|
                 web_sites.each do |site_name, site_config|
                     fqdn = site_config["fqdn"]
                     web_folder = site_config["web_folder"]
+                    cert = site_config["cert"]
 
                     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 
@@ -89,8 +90,10 @@ Vagrant.configure("2") do |config|
                         path: "scripts/https-web-server.sh",
                         args: [site_name],
                         env: {
-                            "HOSTNAME"   => fqdn,
-                            "WEB_FOLDER" => web_folder
+                            "HOSTNAME"   => site_name,
+                            "WEB_FOLDER" => web_folder.
+                            "FQDN"       => fqdn
+                            "CERT_NAME"  => cert
                     }
                 end
             else
