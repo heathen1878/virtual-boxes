@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const hostname = window.location.hostname;
+  const hostname = window.__RUNTIME_CONFIG__?.HOSTNAME || 'unknown';
   const fullurl = window.location.href;
 
   return (
