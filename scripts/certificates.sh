@@ -34,7 +34,7 @@ do
     --file "$PFX_PATH" \
     --encoding base64  
 
-  echo "🔧 Converting $CERT_NAME_1 to PEM"
+  echo "🔧 Converting $cert to PEM"
   openssl pkcs12 -in "$PFX_PATH" -out "$PEM_PATH" -clcerts -nokeys -nodes -password pass:
   openssl pkcs12 -in "$PFX_PATH" -out "$KEY_PATH" -nocerts -nodes -password pass:
 
