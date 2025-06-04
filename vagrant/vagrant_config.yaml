@@ -3,9 +3,6 @@ nodes:
     ip: 192.168.188.50
     role: web-server
     framework: node
-    #tls: yes
-    certificates:
-    - wildcard-tf-demos-co-uk
     sites:
       app1:
         fqdn: www.tf-demos.co.uk
@@ -37,13 +34,3 @@ nodes:
     tls: yes
     certificates:
     - wildcard-tf-demos-co-uk
-  web2:
-    ip: 192.168.188.52
-    role: web-server
-    framework: node
-    tls: no
-  web3:
-    ip: 192.168.188.53
-    role: web-server
-    framework: node
-    tls: no
