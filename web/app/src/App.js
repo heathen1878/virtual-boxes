@@ -8,12 +8,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        Connected to: <strong>{fullurl}</strong>
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Connected to: <strong>{fullurl}</strong>
-          
-          App served by: <strong>{hostname}</strong>
-        </p>
+        App served by: <strong>{hostname}</strong>
       </header>
     </div>
   );

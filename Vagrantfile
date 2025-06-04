@@ -78,23 +78,23 @@ Vagrant.configure("2") do |config|
                         "CLIENT_SECRET"     => azure_sp_secret,
                         "TENANT_ID"         => azure_tenant_id
                     }
-            end
+                else
+                    # Configure one or more sites on the web server...
+                    web_sites.each do |site_name, site_config|
+                        fqdn = site_config["fqdn"]
+                        web_folder = site_config["web_folder"]
 
-            # Configure one or more sites on the web server...
-            web_sites.each do |site_name, site_config|
-                fqdn = site_config["fqdn"]
-                web_folder = site_config["web_folder"]
-
-                node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                        node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 
-                node.vm.provision "shell",
-                    path: "scripts/http-web-server.sh",
-                    args: [site_name],
-                    env: {
-                        "HOSTNAME"   => fqdn,
-                        "WEB_FOLDER" => web_folder
-                    }
-             end
+                        node.vm.provision "shell",
+                            path: "scripts/http-web-server.sh",
+                            args: [site_name],
+                            env: {
+                                "HOSTNAME"   => fqdn,
+                                "WEB_FOLDER" => web_folder
+                        }
+                    end
+            end            
 
             if role == "load-balancer"
                 node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"

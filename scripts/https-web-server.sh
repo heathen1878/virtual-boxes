@@ -5,12 +5,12 @@ for site in "$@"
 do
     echo "Creating $site"
 
-    TPLPATH="/vagrant/web/nginx_conf/http.tpl"
+    TPLPATH="/vagrant/web/nginx_conf/https.tpl"
     AVAILABLE_SITE="/etc/nginx/sites-available/$site"
     ENABLED_SITE="/etc/nginx/sites-enabled/$site"
 
     # Generate NGINX configuration
-    envsubst '${HOSTNAME} ${WEB_FOLDER}' < "$TPLPATH" > "$AVAILABLE_SITE"
+    envsubst < "$TPLPATH" > "$AVAILABLE_SITE"
     
     echo "Making directories to hold web app content..."
     mkdir -p /var/www/$WEB_FOLDER/html

@@ -13,6 +13,8 @@ help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?##' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
+# Standalone Web Server
+#########################################
 web-server: ##   Build a NGINX web server
 	@make build-node-app
 	@echo "🚀 Building web server..."
@@ -29,7 +31,10 @@ rebuild-web-server: ## Rebuild Virtual Boxes
 ssh-web1: ##   SSH into Web1
 	@echo "🔑 SSH into web1"
 	@vagrant ssh web1
+#########################################
 
+# Load Balancer with backends
+#########################################
 load-balancer: ##   Build a Load Balancer and backends
 	@echo "🚀 Building load balancer and web backends..."
 	@vagrant up lb1
@@ -48,14 +53,21 @@ rebuild-load-balancer: ## rebuild Load Balancer and backends
 ssh-lb1: ##           SSH into Web1
 	@echo "🔑 SSH into load balancer 1"
 	@vagrant ssh lb1
+#########################################
 
-clean: ##             Clean up everything
-	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f
-	@echo "Clean up complete!"
-
+# Builds the Node App
+#########################################
 build-node-app: ##   Builds the node app
 	@echo "📦 Building node app..."
 	@npm --prefix web/app install
 	@npm --prefix web/app run build
 	@echo "🚀 Node app built..."
+#########################################
+
+# Clean up
+#########################################
+clean: ##             Clean up everything
+	@echo "🧹 Cleaning up..."
+	@vagrant destroy -f
+	@echo "Clean up complete!"
+#########################################
