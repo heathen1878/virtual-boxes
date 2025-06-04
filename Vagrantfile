@@ -76,12 +76,12 @@ Vagrant.configure("2") do |config|
                     }
             end
 
-            if role == "web-server"
-                node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
-                node.vm.provision "shell",
-                path: "scripts/web-server.sh",
-                args: web_sites
-            end
+            # if role == "web-server"
+            #     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+            #     node.vm.provision "shell",
+            #     path: "scripts/web-server.sh",
+            #     args: web_sites
+            # end
 
             if role == "load-balancer"
                 node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"
