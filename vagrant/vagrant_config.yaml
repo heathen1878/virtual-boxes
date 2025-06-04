@@ -3,7 +3,7 @@ nodes:
     ip: 192.168.188.50
     role: web-server
     framework: node
-    tls: yes
+    #tls: yes
     certificates:
     - wildcard-tf-demos-co-uk
     sites:
