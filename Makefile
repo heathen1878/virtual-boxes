@@ -33,6 +33,27 @@ ssh-web1: ##   SSH into Web1
 	@vagrant ssh web1
 #########################################
 
+# Standalone Web Server with TLS
+#########################################
+web-server2: ##   Build a NGINX web server
+	@make build-node-app
+	@echo "🚀 Building web server..."
+	@vagrant up web2
+	@vagrant reload web2
+	@echo "web server built..."
+
+rebuild-web-server2: ## Rebuild Virtual Boxes
+	@echo "🧹 Cleaning up..."
+	@vagrant destroy -f web2
+	@sleep 15
+	@make web-server
+
+ssh-web2: ##   SSH into Web2
+	@echo "🔑 SSH into web2"
+	@vagrant ssh web2
+#########################################
+
+
 # Load Balancer with backends
 #########################################
 load-balancer: ##   Build a Load Balancer and backends
