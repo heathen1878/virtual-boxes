@@ -16,6 +16,7 @@ help:
 web-server: ##   Build a NGINX web server
 	@echo "🚀 Building web server..."
 	@vagrant up web1
+	@vagrant reload web1
 	@echo "web server built..."
 
 rebuild-web-server: ## Rebuild Virtual Boxes
