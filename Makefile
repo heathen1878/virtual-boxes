@@ -46,7 +46,7 @@ rebuild-web-server2: ## Rebuild Virtual Boxes
 	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f web2
 	@sleep 15
-	@make web-server
+	@make web-server2
 
 ssh-web2: ##   SSH into Web2
 	@echo "🔑 SSH into web2"
