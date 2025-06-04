@@ -2,7 +2,7 @@ server {
         listen 80;
         server_name ${HOSTNAME};
 
-        root /var/www/${HOSTNAME}/html;
+        root /var/www/${WEB_FOLDER}/html;
 
         index index.html;
 

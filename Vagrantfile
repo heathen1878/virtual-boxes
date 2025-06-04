@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
         framework = details.fetch("framework")
         tls_enabled = details.fetch("tls", false)
         cert_names = details.fetch("certificates", []) || []
-        web_sites = details.fetch("sites", []) || []
+        web_sites = details.fetch("sites", {})
 
         config.vm.define name do |node|
             node.vm.hostname = name
@@ -51,11 +51,12 @@ Vagrant.configure("2") do |config|
                 "STATIC_IP"         => ip
             }
 
-            # Install software and other prerequisite tools
+            # Install software and other prerequisite tools...
             if role == "web-server"
                 node.vm.provision "shell", path: "scripts/web-software.sh"
             end
 
+            # If required download and install one or more TLS certs...
             if tls_enabled
                 # Grab variables passed in from web/.env
                 azure_vault_name = ENV["AZURE_VAULT_NAME"]
@@ -76,12 +77,21 @@ Vagrant.configure("2") do |config|
                     }
             end
 
-            # if role == "web-server"
-            #     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
-            #     node.vm.provision "shell",
-            #     path: "scripts/web-server.sh",
-            #     args: web_sites
-            # end
+            # Configure one or more sites on the web server...
+            web_sites.each do |site_name, site_config|
+                fqdn = site_config["fqdn"]
+                web_folder = site_config["web_folder"]
+
+                node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                
+                node.vm.provision "shell",
+                    path: "scripts/http-web-server.sh",
+                    args: [site_name],
+                    env: {
+                        "HOSTNAME"   => fqdn,
+                        "WEB_FOLDER" => web_folder
+                    }
+             end
 
             if role == "load-balancer"
                 node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"

@@ -14,6 +14,7 @@ help:
 	@echo ""
 
 web-server: ##   Build a NGINX web server
+	@make build-node-app
 	@echo "🚀 Building web server..."
 	@vagrant up web1
 	@vagrant reload web1
