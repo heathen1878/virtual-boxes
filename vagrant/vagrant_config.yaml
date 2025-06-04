@@ -19,11 +19,11 @@ nodes:
     - wildcard-tf-demos-co-uk
     - wildcard-infratechy-co-uk
     sites:
-      www:
+      app1:
         fqdn: www.infratechy.co.uk
         web_folder: www_infratechy_co_uk
         cert: wildcard-infratechy-co-uk
-      www2:
+      app2:
         fqdn: www2.tf-demos.co.uk
         web_folder: www2_tf_demos_co_uk
         cert: wildcard-tf-demos-co-uk
