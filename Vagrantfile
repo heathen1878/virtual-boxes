@@ -63,7 +63,7 @@ Vagrant.configure("2") do |config|
                 azure_sp_secret = ENV["AZURE_SP_SECRET"]
                 azure_tenant_id = ENV["TENANT_ID"]
 
-                raise "❌ Missing required environment variables - please define in web/.env" unless azure_vault_name && zure_sp_id && azure_sp_secret && azure_tenant_id
+                raise "❌ Missing required environment variables - please define in web/.env" unless azure_vault_name && azure_sp_id && azure_sp_secret && azure_tenant_id
 
                 node.vm.provision "shell",
                     path: "scripts/certificates.sh",
