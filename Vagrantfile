@@ -78,22 +78,37 @@ Vagrant.configure("2") do |config|
                         "CLIENT_SECRET"     => azure_sp_secret,
                         "TENANT_ID"         => azure_tenant_id
                     }
-                else
-                    # Configure one or more sites on the web server...
-                    web_sites.each do |site_name, site_config|
-                        fqdn = site_config["fqdn"]
-                        web_folder = site_config["web_folder"]
-
-                        node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
                 
-                        node.vm.provision "shell",
-                            path: "scripts/http-web-server.sh",
-                            args: [site_name],
-                            env: {
-                                "HOSTNAME"   => fqdn,
-                                "WEB_FOLDER" => web_folder
-                        }
-                    end
+                web_sites.each do |site_name, site_config|
+                    fqdn = site_config["fqdn"]
+                    web_folder = site_config["web_folder"]
+
+                    node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                
+                    node.vm.provision "shell",
+                        path: "scripts/https-web-server.sh",
+                        args: [site_name],
+                        env: {
+                            "HOSTNAME"   => fqdn,
+                            "WEB_FOLDER" => web_folder
+                    }
+                end
+            else
+                # Configure one or more sites on the web server...
+                web_sites.each do |site_name, site_config|
+                    fqdn = site_config["fqdn"]
+                    web_folder = site_config["web_folder"]
+
+                    node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+                
+                    node.vm.provision "shell",
+                        path: "scripts/http-web-server.sh",
+                        args: [site_name],
+                        env: {
+                            "HOSTNAME"   => fqdn,
+                            "WEB_FOLDER" => web_folder
+                    }
+                end
             end            
 
             if role == "load-balancer"
