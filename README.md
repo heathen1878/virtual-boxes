@@ -7,11 +7,17 @@ make help
 
 ## Builds an Ubuntu VM running NGINX as a Web Server
 
+This builds an Ubuntu VM running NGINX with two websites accessible over port 80. 
+
 ```shell
 make web-server
 ```
 
-This builds an Ubuntu VM running NGINX; it also grabs certificates from a defined Key Vault - use `web/.env` - see `web/.example_env` for an example - and applies them to the two defined websites.
+This builds an Ubuntu VM running NGINX with two websites accessible over port 443. This requires the `web/.env` file has been populated with the required information to pull certificates from Key Vault.
+
+```shell
+make web-server2
+```
 
 ## Builds an Ubuntu VM running NGINX as a Load Balancer
 
