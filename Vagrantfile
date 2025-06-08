@@ -59,6 +59,10 @@ Vagrant.configure("2") do |config|
                 end
             end
 
+            if role == "load-balancer"   
+                node.vm.provision "shell", path: "script/load-balancer-software.sh"
+            end
+
             # If required download and install one or more TLS certs...
             if tls_enabled
                 # Grab variables passed in from web/.env
@@ -112,12 +116,9 @@ Vagrant.configure("2") do |config|
                             "WEB_FOLDER" => web_folder
                     }
                 end
-            end            
-
-            if role == "load-balancer"
-                node.vm.synced_folder "load_balancer", "/vagrant/load_balancer", type: "virtualbox"
-                node.vm.provision "shell", path: "script/load-balancer.sh"
             end
+
+            #node.vm.synced_folder "load_balancer", "/vagrant/load_balancer", type: "virtualbox"
         end
     end
 end

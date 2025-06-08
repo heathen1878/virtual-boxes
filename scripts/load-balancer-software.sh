@@ -17,8 +17,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 rm -rf /var/lib/apt/lists/*
 
 # Configure the firewall
-echo "Setting up the firewall to allow 80 and 443..."
-ufw allow 80/tcp
+echo "Setting up the firewall to allow 443..."
 ufw allow 443/tcp
 ufw allow 22/tcp
 

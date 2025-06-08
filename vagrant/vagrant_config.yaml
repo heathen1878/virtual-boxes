@@ -35,8 +35,8 @@ nodes:
         web_folder: www_infratechy_co_uk
         cert: wildcard-infratechy-co-uk
       app2:
-        fqdn: www2.tf-demos.co.uk
-        web_folder: www2_tf_demos_co_uk
+        fqdn: app2.tf-demos.co.uk
+        web_folder: app_tf_demos_co_uk
         cert: wildcard-tf-demos-co-uk
   web46:
     ip: 192.168.188.46
@@ -52,8 +52,8 @@ nodes:
         web_folder: www_infratechy_co_uk
         cert: wildcard-infratechy-co-uk
       app2:
-        fqdn: www2.tf-demos.co.uk
-        web_folder: www2_tf_demos_co_uk
+        fqdn: app2.tf-demos.co.uk
+        web_folder: www_tf_demos_co_uk
         cert: wildcard-tf-demos-co-uk
   lb50:
     ip: 192.168.188.50

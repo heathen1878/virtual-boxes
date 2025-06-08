@@ -13,67 +13,66 @@ help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?##' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
-# Standalone Web Server
 #########################################
-web-server: ##   Build a NGINX web server
+http-web-server: ##   Build a NGINX web servers
 	@make build-node-app
 	@echo "🚀 Building web server..."
-	@vagrant up web1
-	@vagrant reload web1
+	@vagrant up web41
+	@vagrant reload web41
 	@echo "web server built..."
 
-rebuild-web-server: ## Rebuild Virtual Boxes
+rebuild-http-web-server: ## Rebuild Virtual Boxes
 	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f web1
+	@vagrant destroy -f web41
 	@sleep 15
-	@make web-server
+	@make http-web-server
 
 ssh-web1: ##   SSH into Web1
-	@echo "🔑 SSH into web1"
-	@vagrant ssh web1
+	@echo "🔑 SSH into web41"
+	@vagrant ssh web41
 #########################################
 
-# Standalone Web Server with TLS
+# Web Servers with TLS
 #########################################
-web-server2: ##   Build a NGINX web server
+https-web-server: ##   Build a NGINX web server
 	@make build-node-app
 	@echo "🚀 Building web server..."
-	@vagrant up web2
-	@vagrant reload web2
+	@vagrant up web45
+	@vagrant reload web45
 	@echo "web server built..."
 
-rebuild-web-server2: ## Rebuild Virtual Boxes
+rebuild-https-web-server: ## Rebuild Virtual Boxes
 	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f web2
+	@vagrant destroy -f web45
 	@sleep 15
-	@make web-server2
+	@make https-web-server
 
-ssh-web2: ##   SSH into Web2
-	@echo "🔑 SSH into web2"
-	@vagrant ssh web2
+ssh-web2: ##   SSH into Web45
+	@echo "🔑 SSH into web45"
+	@vagrant ssh web45
 #########################################
-
 
 # Load Balancer with backends
 #########################################
-load-balancer: ##   Build a Load Balancer and backends
+load-balancer-tls-offload: ##   Build a Load Balancer and backends
+	@make build-node-app
 	@echo "🚀 Building load balancer and web backends..."
-	@vagrant up lb1
-	@vagrant up web2
-	@vagrant up web3
+	@vagrant up lb50
+	@vagrant up web41
+	@vagrant up web42
 	@echo "environment built..."
 
 rebuild-load-balancer: ## rebuild Load Balancer and backends
 	@echo "🧹 Cleaning up..."
-	@vagrant destroy -f lb1
-	@vagrant destroy -f web2
-	@vagrant destroy -f web3
+	@vagrant destroy -f lb50
+	@vagrant destroy -f web41
+	@vagrant destroy -f web42
 	@sleep 15
 	@make load-balancer
 
-ssh-lb1: ##           SSH into Web1
-	@echo "🔑 SSH into load balancer 1"
-	@vagrant ssh lb1
+ssh-lb50: ##           SSH into Web1
+	@echo "🔑 SSH into load balancer 50"
+	@vagrant ssh lb50
 #########################################
 
 # Builds the Node App
