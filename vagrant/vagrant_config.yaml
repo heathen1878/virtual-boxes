@@ -1,6 +1,6 @@
 nodes:
-  web1:
-    ip: 192.168.188.50
+  web40:
+    ip: 192.168.188.40
     role: web-server
     framework: node
     sites:
@@ -10,8 +10,19 @@ nodes:
       app2:
         fqdn: app.tf-demos.co.uk
         web_folder: app_tf_demos_co_uk
-  web2:
-    ip: 192.168.188.51
+  web41:
+    ip: 192.168.188.41
+    role: web-server
+    framework: node
+    sites:
+      app1:
+        fqdn: www.tf-demos.co.uk
+        web_folder: www_tf_demos_co_uk
+      app2:
+        fqdn: app.tf-demos.co.uk
+        web_folder: app_tf_demos_co_uks
+  web45:
+    ip: 192.168.188.45
     role: web-server
     framework: node
     tls: yes
@@ -27,10 +38,28 @@ nodes:
         fqdn: www2.tf-demos.co.uk
         web_folder: www2_tf_demos_co_uk
         cert: wildcard-tf-demos-co-uk
-  lb1:
-    ip: 192.168.188.51
+  web46:
+    ip: 192.168.188.46
+    role: web-server
+    framework: node
+    tls: yes
+    certificates:
+    - wildcard-tf-demos-co-uk
+    - wildcard-infratechy-co-uk
+    sites:
+      app1:
+        fqdn: www.infratechy.co.uk
+        web_folder: www_infratechy_co_uk
+        cert: wildcard-infratechy-co-uk
+      app2:
+        fqdn: www2.tf-demos.co.uk
+        web_folder: www2_tf_demos_co_uk
+        cert: wildcard-tf-demos-co-uk
+  lb50:
+    ip: 192.168.188.50
     role: load-balancer
     framework: none
     tls: yes
     certificates:
     - wildcard-tf-demos-co-uk
+    - wildcard-infratechy-co-uk

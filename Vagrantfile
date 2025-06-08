@@ -115,7 +115,7 @@ Vagrant.configure("2") do |config|
             end            
 
             if role == "load-balancer"
-                node.vm.synced_folder "load_balancer", "/vagrant/lb", type: "virtualbox"
+                node.vm.synced_folder "load_balancer", "/vagrant/load_balancer", type: "virtualbox"
                 node.vm.provision "shell", path: "script/load-balancer.sh"
             end
         end
