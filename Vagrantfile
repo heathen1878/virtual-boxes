@@ -60,7 +60,7 @@ Vagrant.configure("2") do |config|
             end
 
             if role == "load-balancer"   
-                node.vm.provision "shell", path: "script/load-balancer-software.sh"
+                node.vm.provision "shell", path: "scripts/load-balancer-software.sh"
             end
 
             # If required download and install one or more TLS certs...
