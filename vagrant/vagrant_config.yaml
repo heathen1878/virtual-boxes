@@ -25,6 +25,7 @@ nodes:
     ip: 192.168.188.42
     role: backend-web-server
     framework: node
+    load_balancer_ip: 192.168.188.50
     sites:
       app1:
         fqdn: www.tf-demos.co.uk

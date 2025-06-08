@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
         tls_enabled = details.fetch("tls", false)
         cert_names = details.fetch("certificates", []) || []
         web_sites = details.fetch("sites", {})
-        load_balancer_ip = details.fetch("load_balancer_ip")
+        load_balancer_ip = details["load_balancer_ip"]
 
         config.vm.define name do |node|
             node.vm.hostname = name
