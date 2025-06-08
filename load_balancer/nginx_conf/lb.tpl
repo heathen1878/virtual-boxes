@@ -5,11 +5,14 @@ upstream ${BACKEND} {
     server ${BACKEND2};
 }
 
-# Need to workout how to pass https to http and https to https
+server {
+        listen 80;
+        server_name ${FQDN};
+        return 301 https://$host$request_uri;
+}
 
 server {
-    listen 80;
-
+    listen 443 ssl;
     server_name ${FQDN};
 
     location / {

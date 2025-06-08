@@ -12,7 +12,18 @@ nodes:
         web_folder: app_tf_demos_co_uk
   web41:
     ip: 192.168.188.41
-    role: web-server
+    role: backend-web-server
+    framework: node
+    sites:
+      app1:
+        fqdn: www.tf-demos.co.uk
+        web_folder: www_tf_demos_co_uk
+      app2:
+        fqdn: app.tf-demos.co.uk
+        web_folder: app_tf_demos_co_uks
+  web42:
+    ip: 192.168.188.42
+    role: backend-web-server
     framework: node
     sites:
       app1:

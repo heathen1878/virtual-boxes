@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
         tls_enabled = details.fetch("tls", false)
         cert_names = details.fetch("certificates", []) || []
         web_sites = details.fetch("sites", {})
+        load_balancer_ip = details.fetch("load_balancer_ip")
 
         config.vm.define name do |node|
             node.vm.hostname = name
@@ -73,6 +74,7 @@ Vagrant.configure("2") do |config|
 
                 raise "❌ Missing required environment variables - please define in web/.env" unless azure_vault_name && azure_sp_id && azure_sp_secret && azure_tenant_id
 
+                # Install TLS certs...
                 node.vm.provision "shell",
                     path: "scripts/certificates.sh",
                     args: cert_names, 
@@ -89,7 +91,22 @@ Vagrant.configure("2") do |config|
                     cert = site_config["cert"]
 
                     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
+
+                    # Configure the firewall to allow TCP/80 and TCP/443 from anywhere
+                    if role == "web-server"
+                        node.vm.provision "shell",
+                        path: "scripts/firewall-https.sh"
+                    # Configure the firewall to allow TCP/443 from the Load Balancer
+                    elseif role == "backend-web-server"
+                        node.vm.provision "shell",
+                        path: "scripts/firewall-backend.sh",
+                        env: {
+                            "LOAD_BALANCER_IP" => load_balancer_ip,
+                            "PORT"             => 443
+                        }
+                    end
                 
+                    # Configure the websites on the server as defined within the sites object
                     node.vm.provision "shell",
                         path: "scripts/https-web-server.sh",
                         args: [site_name],
@@ -101,20 +118,34 @@ Vagrant.configure("2") do |config|
                         }
                 end
             else
-                # Configure one or more sites on the web server...
                 web_sites.each do |site_name, site_config|
                     fqdn = site_config["fqdn"]
                     web_folder = site_config["web_folder"]
 
                     node.vm.synced_folder "web", "/vagrant/web", type: "virtualbox"
-                
+                    
+                    # Configure the firewall to allow TCP/80 from anywhere
+                    if role == "web-server"
+                        node.vm.provision "shell",
+                        path: "scripts/firewall-http.sh"
+                    # Configure the firewall to allow TCP/80 from the Load Balancer
+                    elseif role == "backend-web-server"
+                        node.vm.provision "shell",
+                        path: "scripts/firewall-backend.sh",
+                        env: {
+                            "LOAD_BALANCER_IP" => load_balancer_ip,
+                            "PORT"             => 80
+                        }
+                    end
+
+                    # Configure the websites on the server as defined within the sites object
                     node.vm.provision "shell",
                         path: "scripts/http-web-server.sh",
                         args: [site_name],
                         env: {
                             "HOSTNAME"   => fqdn,
                             "WEB_FOLDER" => web_folder
-                    }
+                        }
                 end
             end
 
