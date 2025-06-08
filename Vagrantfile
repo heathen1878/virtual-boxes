@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
                         node.vm.provision "shell",
                         path: "scripts/firewall-https.sh"
                     # Configure the firewall to allow TCP/443 from the Load Balancer
-                    elseif role == "backend-web-server"
+                    elsif role == "backend-web-server"
                         node.vm.provision "shell",
                         path: "scripts/firewall-backend.sh",
                         env: {
@@ -129,7 +129,7 @@ Vagrant.configure("2") do |config|
                         node.vm.provision "shell",
                         path: "scripts/firewall-http.sh"
                     # Configure the firewall to allow TCP/80 from the Load Balancer
-                    elseif role == "backend-web-server"
+                    elsif role == "backend-web-server"
                         node.vm.provision "shell",
                         path: "scripts/firewall-backend.sh",
                         env: {
