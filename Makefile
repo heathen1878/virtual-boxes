@@ -58,15 +58,15 @@ load-balancer-tls-offload: ##   Build a Load Balancer and backends
 	@make build-node-app
 	@echo "🚀 Building load balancer and web backends..."
 	@vagrant up lb50
-	@vagrant up web40
 	@vagrant up web41
+	@vagrant up web42
 	@echo "environment built..."
 
 rebuild-load-balancer-tls-offload: ## rebuild Load Balancer and backends
 	@echo "🧹 Cleaning up..."
 	@vagrant destroy -f lb50
-	@vagrant destroy -f web40
 	@vagrant destroy -f web41
+	@vagrant destroy -f web42
 	@sleep 15
 	@make load-balancer-tls-offload
 

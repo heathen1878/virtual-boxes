@@ -16,6 +16,7 @@ server {
 
         ssl_certificate /etc/nginx/certs/${CERT_NAME}.pem;
         ssl_certificate_key /etc/nginx/certs/${CERT_NAME}-key.pem;
+        ssl_protocols TLSv1.2 TLSv1.3;
         
         root /var/www/${WEB_FOLDER}/html;
 

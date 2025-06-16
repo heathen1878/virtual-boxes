@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
         cert_names = details.fetch("certificates", []) || []
         web_sites = details.fetch("sites", {})
         load_balancer_ip = details["load_balancer_ip"]
+        tls_end_to_end = details.fetch("tls_e2e")
 
         config.vm.define name do |node|
             node.vm.hostname = name
@@ -53,14 +54,12 @@ Vagrant.configure("2") do |config|
             }
 
             # Install software and other prerequisite tools...
-            if role == "web-server"
+            if role == "web-server" || role == "backend-web-server"
                 node.vm.provision "shell", path: "scripts/web-software.sh"
                 if framework == "node"
                     node.vm.provision "shell", path: "scripts/node.sh"
                 end
-            end
-
-            if role == "load-balancer"   
+            elsif role == "load-balancer"   
                 node.vm.provision "shell", path: "scripts/load-balancer-software.sh"
             end
 
@@ -74,6 +73,10 @@ Vagrant.configure("2") do |config|
 
                 raise "❌ Missing required environment variables - please define in web/.env" unless azure_vault_name && azure_sp_id && azure_sp_secret && azure_tenant_id
 
+                # Install the tools required to install certificates...
+                node.vm.provision "shell",
+                path: "scripts/certificate-tools.sh"
+
                 # Install TLS certs...
                 node.vm.provision "shell",
                     path: "scripts/certificates.sh",
@@ -84,7 +87,7 @@ Vagrant.configure("2") do |config|
                         "CLIENT_SECRET"     => azure_sp_secret,
                         "TENANT_ID"         => azure_tenant_id
                     }
-                
+                                
                 web_sites.each do |site_name, site_config|
                     fqdn = site_config["fqdn"]
                     web_folder = site_config["web_folder"]
@@ -107,7 +110,8 @@ Vagrant.configure("2") do |config|
                     end
                 
                     # Configure the websites on the server as defined within the sites object
-                    node.vm.provision "shell",
+                    if role == "web-server"
+                        node.vm.provision "shell",
                         path: "scripts/https-web-server.sh",
                         args: [site_name],
                         env: {
@@ -116,6 +120,27 @@ Vagrant.configure("2") do |config|
                             "FQDN"       => fqdn,
                             "CERT_NAME"  => cert
                         }
+                    elsif role == "load-balancer"
+                        node.vm.synced_folder "load_balancer", "/vagrant/load_balancer", type: "virtualbox"
+
+                        if tls_end_to_end
+                            # Configure the websites on the server as defined within the sites object; in this case as load balancer front ends.
+                            node.vm.provision "shell",
+                            path: "scripts/https-load-balancer.sh",
+                            args: [site_name],
+                            env: {
+                                
+                            }
+                        else
+                            # Configure the websites on the server as defined within the sites object; in this case as load balancer front ends.
+                            node.vm.provision "shell",
+                            path: "scripts/http-load-balancer.sh",
+                            args: [site_name],
+                            env: {
+
+                            }
+                        end
+                    end
                 end
             else
                 web_sites.each do |site_name, site_config|

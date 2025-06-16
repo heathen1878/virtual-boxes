@@ -6,9 +6,7 @@ echo 'Updating the list of available packages and versions, upgrading installed 
 apt update && apt upgrade -y -qq && apt install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
-    curl \
-    net-tools \
-    nginx
+    curl
 
-# Clean up
-rm -rf /var/lib/apt/lists/*
+# Install Azure Cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash

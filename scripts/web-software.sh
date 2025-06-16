@@ -10,8 +10,5 @@ apt update && apt upgrade -y -qq && apt install -y --no-install-recommends \
     net-tools \
     nginx
 
-# Install Azure Cli
-curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-
 # Clean up
 rm -rf /var/lib/apt/lists/*

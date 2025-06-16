@@ -5,15 +5,16 @@ nodes:
     framework: node
     sites:
       app1:
-        fqdn: www.tf-demos.co.uk
-        web_folder: www_tf_demos_co_uk
+        fqdn: app1.tf-demos.co.uk
+        web_folder: app1_tf_demos_co_uk
       app2:
-        fqdn: app.tf-demos.co.uk
-        web_folder: app_tf_demos_co_uk
+        fqdn: app2.tf-demos.co.uk
+        web_folder: app2_tf_demos_co_uk
   web41:
     ip: 192.168.188.41
     role: backend-web-server
     framework: node
+    load_balancer_ip: 192.168.188.50
     sites:
       app1:
         fqdn: www.tf-demos.co.uk
@@ -75,3 +76,20 @@ nodes:
     certificates:
     - wildcard-tf-demos-co-uk
     - wildcard-infratechy-co-uk
+    sites:
+      app1:
+        fqdn: www.tf-demos.co.uk
+        web_folder: www_tf_demos_co_uk
+        cert: wildcard-tf-demos-co-uk
+        backends:
+          web:
+            server1: 192.168.188.41
+            server2: 192.168.188.42
+      app2:
+        fqdn: app.tf-demos.co.uk
+        web_folder: app_tf_demos_co_uk
+        cert: wildcard-tf-demos-co-uk
+        backends:
+          web:
+            server1: 192.168.188.41
+            server2: 192.168.188.42
